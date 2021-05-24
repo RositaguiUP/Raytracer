@@ -28,20 +28,14 @@ public class Raytracer {
     public static void main(String[] args) {
         System.out.println(new Date());
         Scene scene01 = new Scene();
-        scene01.setCamera(new Camera(new Vector3D(0, 0, -8), 160, 160, 800, 800, 8.2f, 50f));
+        scene01.setCamera(new Camera(new Vector3D(0, 0, -8), 160, 160, 800, 800, 0f, 50f));
         /*scene01.addLight(new DirectionalLight(Vector3D.ZERO(), new Vector3D(0.0, 0.0, 1.0), Color.WHITE, 0.8));
         scene01.addLight(new DirectionalLight(Vector3D.ZERO(), new Vector3D(0.0, -0.1, 0.1), Color.WHITE, 0.2));
         scene01.addLight(new DirectionalLight(Vector3D.ZERO(), new Vector3D(-0.2, -0.1, 0.0), Color.WHITE, 0.2));*/
-        scene01.addLight(new PointLight(new Vector3D(0f, 1f, 0f), Color.WHITE, 0.8));
-        scene01.addObject(new Sphere(new Vector3D(0f, 1f, 5f), 0.5f, Color.RED));
-        scene01.addObject(new Sphere(new Vector3D(0.5f, 1f, 4.5f), 0.25f, new Color(200, 255, 0)));
-        scene01.addObject(new Sphere(new Vector3D(0.35f, 1f, 4.5f), 0.3f, Color.BLUE));
-        scene01.addObject(new Sphere(new Vector3D(4.85f, 1f, 4.5f), 0.3f, Color.PINK));
-        scene01.addObject(new Sphere(new Vector3D(2.85f, 1f, 304.5f), 0.5f, Color.BLUE));
-        scene01.addObject(OBJReader.GetPolygon("./objs/Cube.obj", new Vector3D(0f, -2.5f, 1f), Color.WHITE));
-        scene01.addObject(OBJReader.GetPolygon("./objs/CubeQuad.obj", new Vector3D(-3f, -2.5f, 3f), Color.GREEN));
-        scene01.addObject(OBJReader.GetPolygon("./objs/SmallTeapot.obj", new Vector3D(2f, -1.0f, 1.5f), Color.BLUE));
-        scene01.addObject(OBJReader.GetPolygon("./objs/Ring.obj", new Vector3D(2f, -1.0f, 1.5f), Color.BLUE));
+        //scene01.addLight(new PointLight(new Vector3D(0f, 1.5f, 1f), Color.WHITE, 0.8));
+        scene01.addLight(new PointLight(new Vector3D(0f, 5f, 1f), Color.WHITE, 4, 1));
+        scene01.addObject(OBJReader.GetPolygon("./objs/Floor.obj", new Vector3D(0f, -1.5f, 1f), Color.GRAY));
+        scene01.addObject(OBJReader.GetPolygon("./objs/SmallTeapot.obj", new Vector3D(0f, -1.5f, 1f), Color.BLUE));
 
         BufferedImage image = raytrace(scene01);
         File outputImage = new File("image.png");
@@ -76,17 +70,22 @@ public class Raytracer {
                 if (closestIntersection != null) {
                     pixelColor = Color.BLACK;
                     for (Light light : lights) {
-                        float nDotL = light.getNDotL(closestIntersection);
-                        float intensity = (float) light.getIntensity() * nDotL;
-                        Color lightColor = light.getColor();
-                        Color objColor = closestIntersection.getObject().getColor();
-                        float[] lightColors = new float[]{lightColor.getRed() / 255.0f, lightColor.getGreen() / 255.0f, lightColor.getBlue() / 255.0f};
-                        float[] objColors = new float[]{objColor.getRed() / 255.0f, objColor.getGreen() / 255.0f, objColor.getBlue() / 255.0f};
-                        for (int colorIndex = 0; colorIndex < objColors.length; colorIndex++) {
-                            objColors[colorIndex] *= intensity * lightColors[colorIndex];
+                        Ray intersectionLightRay = new Ray(closestIntersection.getPosition(), light.getPosition());
+                        Intersection shadowIntersection = raycast(intersectionLightRay, objects, closestIntersection.getObject(), null);
+                        if (shadowIntersection == null) {
+                            float nDotL = light.getNDotL(closestIntersection);
+                            float intensity = (float) light.getIntensity() * nDotL;
+                            float lightIntensity = (float) (intensity / Math.pow(Vector3D.magnitude(Vector3D.substract(light.getPosition(), closestIntersection.getPosition())), light.getFalloff()));
+                            Color lightColor = light.getColor();
+                            Color objColor = closestIntersection.getObject().getColor();
+                            float[] lightColors = new float[]{lightColor.getRed() / 255.0f, lightColor.getGreen() / 255.0f, lightColor.getBlue() / 255.0f};
+                            float[] objColors = new float[]{objColor.getRed() / 255.0f, objColor.getGreen() / 255.0f, objColor.getBlue() / 255.0f};
+                            for (int colorIndex = 0; colorIndex < objColors.length; colorIndex++) {
+                                objColors[colorIndex] *= lightIntensity * lightColors[colorIndex];
+                            }
+                            Color diffuse = new Color(clamp(objColors[0], 0, 1), clamp(objColors[1], 0, 1), clamp(objColors[2], 0, 1));
+                            pixelColor = addColor(pixelColor, diffuse);
                         }
-                        Color diffuse = new Color(clamp(objColors[0], 0, 1),clamp(objColors[1], 0, 1),clamp(objColors[2], 0, 1));
-                        pixelColor = addColor(pixelColor, diffuse);
                     }
                 }
                 image.setRGB(i, j, pixelColor.getRGB());

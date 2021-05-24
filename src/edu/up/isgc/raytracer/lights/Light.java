@@ -17,10 +17,12 @@ import java.awt.*;
  */
 public abstract class Light extends Object3D {
     private double intensity;
+    private int falloff;
 
-    public Light(Vector3D position, Color color, double intensity){
+    public Light(Vector3D position, Color color, double intensity, int falloff){
         super(position, color);
         setIntensity(intensity);
+        setFalloff(falloff);
     }
 
     public double getIntensity() {
@@ -30,6 +32,11 @@ public abstract class Light extends Object3D {
     public void setIntensity(double intensity) {
         this.intensity = intensity;
     }
+
+
+    public int getFalloff() { return falloff; }
+
+    public void setFalloff(int falloff) { this.falloff = falloff; }
 
     public abstract float getNDotL(Intersection intersection);
 

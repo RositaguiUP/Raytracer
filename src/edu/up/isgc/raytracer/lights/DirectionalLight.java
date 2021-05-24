@@ -16,8 +16,8 @@ import java.awt.*;
 public class DirectionalLight extends Light {
     private Vector3D direction;
 
-    public DirectionalLight(Vector3D position, Vector3D direction, Color color, double intensity){
-        super(position, color, intensity);
+    public DirectionalLight(Vector3D position, Vector3D direction, Color color, double intensity, int falloff){
+        super(position, color, intensity, falloff);
         setDirection(Vector3D.normalize(direction));
     }
 

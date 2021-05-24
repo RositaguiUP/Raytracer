@@ -7,8 +7,8 @@ import java.awt.*;
 
 public class PointLight extends Light {
 
-    public PointLight(Vector3D position, Color color, double intensity){
-        super(position, color, intensity);
+    public PointLight(Vector3D position, Color color, double intensity, int falloff){
+        super(position, color, intensity, falloff);
     }
 
     @Override
