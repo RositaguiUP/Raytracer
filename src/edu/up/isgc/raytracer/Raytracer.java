@@ -4,8 +4,7 @@
  */
 package edu.up.isgc.raytracer;
 
-import edu.up.isgc.raytracer.lights.Light;
-import edu.up.isgc.raytracer.lights.PointLight;
+import edu.up.isgc.raytracer.lights.*;
 import edu.up.isgc.raytracer.materials.MaterialBP;
 import edu.up.isgc.raytracer.objects.*;
 import edu.up.isgc.raytracer.tools.OBJReader;
@@ -33,14 +32,17 @@ public class Raytracer {
         scene01.addLight(new DirectionalLight(Vector3D.ZERO(), new Vector3D(0.0, -0.1, 0.1), Color.WHITE, 0.2));
         scene01.addLight(new DirectionalLight(Vector3D.ZERO(), new Vector3D(-0.2, -0.1, 0.0), Color.WHITE, 0.2));*/
 
+        //scene01.addLight(new DirectionalLight(Vector3D.ZERO(), new Vector3D(0.0, 0, 0), Color.WHITE, 0.8, 1));
         scene01.addLight(new PointLight(new Vector3D(0f, 4f, 0.5f), Color.WHITE, 4, 1));
         //scene01.addLight(new PointLight(new Vector3D(1.5f, 1f, 1f), Color.WHITE, 2, 1));
         scene01.addObject(OBJReader.GetPolygon("./objs/Floor.obj", new Vector3D(0f, -1.5f, 1f), Color.GRAY,
-                new MaterialBP(0.001f, 0.8f, 1f, 10f, 2f, 0f)));
-        /*scene01.addObject(OBJReader.GetPolygon("./objs/SmallTeapot.obj", new Vector3D(0f, -1.5f, 1f),
-                Color.RED, new MaterialBP(0.1f, 1f, 1f, 20f, 0f, 0f)));*/
+                new MaterialBP(0.001f, 0.4f, 0.5f, 10f, 0.9f, 0f)));
+        /*scene01.addObject(OBJReader.GetPolygon("./objs/SmallTeapot.obj", new Vector3D(2f, -0.5f, 3f),
+                Color.RED, new MaterialBP(0.1f, 1f, 1f, 20f, 0.8f, 0f)));*/
         scene01.addObject(new Sphere(new Vector3D(0f, -0.5f,3f), 0.5f, Color.WHITE,
-                new MaterialBP(0.1f, 0.2f, 0.6f, 20f, 0.8f, 0f)));
+                new MaterialBP(0.1f, 0.2f, 0.6f, 20f, 0.8f, 1f)));
+        scene01.addObject(OBJReader.GetPolygon("./objs/Cube.obj", new Vector3D(0f, -0.5f, 1f), Color.RED,
+                new MaterialBP(0.1f, 0.2f, 0.6f, 20f, 0f, 1.5f)));
 
         BufferedImage image = raytrace(scene01);
         File outputImage = new File("image.png");
@@ -122,13 +124,24 @@ public class Raytracer {
                 if (objMaterial.getIndexOfReflexion() > 0 && depth < maxDepth) {
                     Vector3D reflectionDirection = Vector3D.substract(ray.getDirection(), Vector3D.scalarMultiplication(
                             Vector3D.scalarMultiplication(closestIntersection.getNormal(),
-                            Vector3D.dotProduct(ray.getDirection(), closestIntersection.getNormal())), 2));;
+                            Vector3D.dotProduct(ray.getDirection(), closestIntersection.getNormal())), 2));
                     Ray intersectionReflectionRay = new Ray(closestIntersection.getPosition(), reflectionDirection);
                     Intersection reflectionIntersection = raycast(intersectionReflectionRay, objects, closestIntersection.getObject(), null);
                     if (reflectionIntersection != null) {
                         depth += 1;
                         Color reflectedObjColor = getPixelColor(ray, lights, objects, reflectionIntersection, Color.BLACK, depth, maxDepth);
                         pixelColor = shading(pixelColor, reflectedObjColor, pixelColor, (float) objMaterial.getIndexOfReflexion(), 1f);
+                    }
+                }
+
+                // Refraction
+                if (objMaterial.getIndexOfRefraction() > 0){
+                    Vector3D refractionDirection = transmitionRay(ray.getDirection(), closestIntersection.getNormal(), (float) objMaterial.getIndexOfRefraction());
+                    Ray intersectionRefractionRay = new Ray(closestIntersection.getPosition(), refractionDirection);
+                    Intersection refractionIntersection = raycast(intersectionRefractionRay, objects, closestIntersection.getObject(), null);
+                    if (refractionIntersection != null) {
+                        Color refractedObjColor = getPixelColor(ray, lights, objects, refractionIntersection, Color.BLACK, 0, maxDepth);
+                        pixelColor = shading(pixelColor, refractedObjColor, pixelColor, (float) objMaterial.getIndexOfRefraction(), 1f);
                     }
                 }
             }
@@ -163,15 +176,16 @@ public class Raytracer {
         return addColor(pixelColor, colorToAdd);
     }
 
-    public static Vector3D transmitionRay(Vector3D i, float nDotL, Vector3D n,float ior)
+    public static Vector3D transmitionRay(Vector3D i, Vector3D n,float ior)
     {
+        float nDotL = (float) Vector3D.dotProduct(i, n);
         float cosi = clamp(-1, 1, nDotL);
         float etai = 1, etat = ior;
         Vector3D nN = n;
         if (cosi < 0) { cosi = -cosi; } else {
             float temp = etai;
             etai = etat;
-            etat = etai;
+            etat = temp;
             nN= Vector3D.scalarMultiplication(n, -1); }
         float eta = etai / etat;
         float k = 1 - eta * eta * (1 - cosi * cosi);
