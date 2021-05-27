@@ -61,7 +61,7 @@ public class Polygon extends Object3D {
             if(intersection != null && intersectionDistance > 0 && (intersectionDistance < distance ||distance < 0)){
                 distance = intersectionDistance;
                 position = Vector3D.add(ray.getOrigin(), Vector3D.scalarMultiplication(ray.getDirection(), distance));
-                if (getMaterial().isPhong()) {
+                if (getMaterial().isSmooth()) {
                     normal = Vector3D.ZERO();
                     double[] uVw = Barycentric.CalculateBarycentricCoordinates(position, triangle);
                     Vector3D[] normals = triangle.getNormals();

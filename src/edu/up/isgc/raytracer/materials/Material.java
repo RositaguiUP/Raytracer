@@ -1,16 +1,16 @@
 package edu.up.isgc.raytracer.materials;
 
 public class Material {
-    private boolean phong;
+    private boolean smooth;
     private double diffuse;
     private double specular;
     private double shininess;
     private double indexOfReflexion;
     private double indexOfRefraction;
 
-    public Material(boolean phong, double diffuse, double specular, double shininess, double indexOfReflexion,
+    public Material(boolean smooth, double diffuse, double specular, double shininess, double indexOfReflexion,
                     double indexOfRefraction) {
-        setPhong(phong);
+        setSmooth(smooth);
         setDiffuse(diffuse);
         setSpecular(specular);
         setShininess(shininess);
@@ -18,9 +18,9 @@ public class Material {
         setIndexOfRefraction(indexOfRefraction);
     }
 
-    public boolean isPhong() { return phong; }
+    public boolean isSmooth() { return smooth; }
 
-    public void setPhong(boolean phong) { this.phong = phong; }
+    public void setSmooth(boolean smooth) { this.smooth = smooth; }
 
     public double getDiffuse() {
         return diffuse;
