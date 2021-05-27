@@ -32,6 +32,38 @@ public class Camera extends Object3D {
         setNearFarPlanes(new float[]{nearPlane, farPlane});
     }
 
+    public Vector3D[][] calculatePositionsToRay() {
+        float angleMaxX = 90 - (getFieldOfViewHorizontal() / 2f);
+        float radiusMaxX = getDefaultZ() / (float) Math.cos(Math.toRadians(angleMaxX));
+
+        float maxX = (float) Math.sin(Math.toRadians(angleMaxX)) * radiusMaxX;
+        float minX = -maxX;
+
+        float angleMaxY = 90 - (getFieldOfViewVertical() / 2f);
+        float radiusMaxY = getDefaultZ() / (float) Math.cos(Math.toRadians(angleMaxY));
+
+        float maxY = (float) Math.sin(Math.toRadians(angleMaxY)) * radiusMaxY;
+        float minY = -maxY;
+
+        Vector3D[][] positions = new Vector3D[getResolutionWidth()][getResolutionHeight()];
+        float posZ = getDefaultZ();
+        for (int x = 0; x < positions.length; x++) {
+            for (int y = 0; y < positions[x].length; y++) {
+                float posX = minX + (((maxX - minX) / (float) getResolutionWidth()) * x);
+                //float posY = minY + (((maxY - minY) / (float) getResolutionHeight()) * y);
+                float posY = maxY - (((maxY - minY) / (float) getResolutionHeight()) * y);
+                positions[x][y] = new Vector3D(posX, posY, posZ);
+            }
+        }
+
+        return positions;
+    }
+
+    @Override
+    public Intersection getIntersection(Ray ray) {
+        return new Intersection(Vector3D.ZERO(), -1, Vector3D.ZERO(), null);
+    }
+
     public float[] getFieldOfView() {
         return fieldOfView;
     }
@@ -80,33 +112,6 @@ public class Camera extends Object3D {
         return getResolution()[1];
     }
 
-    public Vector3D[][] calculatePositionsToRay() {
-        float angleMaxX = 90 - (getFieldOfViewHorizontal() / 2f);
-        float radiusMaxX = getDefaultZ() / (float) Math.cos(Math.toRadians(angleMaxX));
-
-        float maxX = (float) Math.sin(Math.toRadians(angleMaxX)) * radiusMaxX;
-        float minX = -maxX;
-
-        float angleMaxY = 90 - (getFieldOfViewVertical() / 2f);
-        float radiusMaxY = getDefaultZ() / (float) Math.cos(Math.toRadians(angleMaxY));
-
-        float maxY = (float) Math.sin(Math.toRadians(angleMaxY)) * radiusMaxY;
-        float minY = -maxY;
-
-        Vector3D[][] positions = new Vector3D[getResolutionWidth()][getResolutionHeight()];
-        float posZ = getDefaultZ();
-        for (int x = 0; x < positions.length; x++) {
-            for (int y = 0; y < positions[x].length; y++) {
-                float posX = minX + (((maxX - minX) / (float) getResolutionWidth()) * x);
-                //float posY = minY + (((maxY - minY) / (float) getResolutionHeight()) * y);
-                float posY = maxY - (((maxY - minY) / (float) getResolutionHeight()) * y);
-                positions[x][y] = new Vector3D(posX, posY, posZ);
-            }
-        }
-
-        return positions;
-    }
-
     public float[] getNearFarPlanes() {
         return nearFarPlanes;
     }
@@ -115,8 +120,4 @@ public class Camera extends Object3D {
         this.nearFarPlanes = nearFarPlanes;
     }
 
-    @Override
-    public Intersection getIntersection(Ray ray) {
-        return new Intersection(Vector3D.ZERO(), -1, Vector3D.ZERO(), null);
-    }
 }

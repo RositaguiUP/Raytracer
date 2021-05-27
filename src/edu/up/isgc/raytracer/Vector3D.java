@@ -13,30 +13,6 @@ public class Vector3D {
     private static final Vector3D ZERO = new Vector3D(0.0, 0.0, 0.0);
     private double x, y, z;
 
-    public double getX() {
-        return x;
-    }
-
-    public void setX(double x) {
-        this.x = x;
-    }
-
-    public double getY() {
-        return y;
-    }
-
-    public void setY(double y) {
-        this.y = y;
-    }
-
-    public double getZ() {
-        return z;
-    }
-
-    public void setZ(double z) {
-        this.z = z;
-    }
-
     public Vector3D(double x, double y, double z) {
         setX(x);
         setY(y);
@@ -74,11 +50,6 @@ public class Vector3D {
         return new Vector3D(vectorA.getX() * scalar, vectorA.getY() * scalar, vectorA.getZ() * scalar);
     }
 
-    @Override
-    public String toString() {
-        return "(" + getX() + ", " + getY() + ", " + getZ() + ")";
-    }
-
     public Vector3D clone(){
         return new Vector3D(getX(), getY(), getZ());
     }
@@ -86,4 +57,32 @@ public class Vector3D {
     public static Vector3D ZERO(){
         return ZERO.clone();
     }
+
+    @Override
+    public String toString() {
+        return "(" + getX() + ", " + getY() + ", " + getZ() + ")";
+    }
+
+    public double getX() {
+        return x;
+    }
+
+    public void setX(double x) {
+        this.x = x;
+    }
+
+    public double getY() {
+        return y;
+    }
+
+    public void setY(double y) {
+        this.y = y;
+    }
+
+    public double getZ() {
+        return z;
+    }
+
+    public void setZ(double z) { this.z = z; }
+
 }

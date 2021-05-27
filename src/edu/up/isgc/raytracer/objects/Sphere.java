@@ -19,14 +19,6 @@ public class Sphere extends Object3D {
 
     private float radius;
 
-    public float getRadius() {
-        return radius;
-    }
-
-    public void setRadius(float radius) {
-        this.radius = radius;
-    }
-
     public Sphere(Vector3D position, float radius, Color color, Material material) {
         super(position, color, material);
         setRadius(radius);
@@ -57,4 +49,13 @@ public class Sphere extends Object3D {
 
         return new Intersection(position, distance, normal, this);
     }
+
+    public float getRadius() {
+        return radius;
+    }
+
+    public void setRadius(float radius) {
+        this.radius = radius;
+    }
+
 }

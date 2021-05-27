@@ -23,6 +23,12 @@ public abstract class Light extends Object3D {
         setIntensity(intensity);
     }
 
+    public abstract float getNDotL(Intersection intersection);
+
+    public Intersection getIntersection(Ray ray){
+        return new Intersection(Vector3D.ZERO(), -1, Vector3D.ZERO(), null);
+    }
+
     public double getIntensity() {
         return intensity;
     }
@@ -31,9 +37,4 @@ public abstract class Light extends Object3D {
         this.intensity = intensity;
     }
 
-    public abstract float getNDotL(Intersection intersection);
-
-    public Intersection getIntersection(Ray ray){
-        return new Intersection(Vector3D.ZERO(), -1, Vector3D.ZERO(), null);
-    }
 }

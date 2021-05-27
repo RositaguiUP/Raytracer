@@ -20,6 +20,17 @@ public abstract class Object3D implements IIntersectable {
     private Color color;
     private Material material;
 
+    public Object3D(Vector3D position, Color color) {
+        setPosition(position);
+        setColor(color);
+    }
+
+    public Object3D(Vector3D position, Color color, Material material) {
+        setPosition(position);
+        setColor(color);
+        setMaterial(material);
+    }
+
     public Vector3D getPosition() {
         return position;
     }
@@ -42,17 +53,6 @@ public abstract class Object3D implements IIntersectable {
 
     public void setMaterial(Material material) {
         this.material = material;
-    }
-
-    public Object3D(Vector3D position, Color color) {
-        setPosition(position);
-        setColor(color);
-    }
-
-    public Object3D(Vector3D position, Color color, Material material) {
-        setPosition(position);
-        setColor(color);
-        setMaterial(material);
     }
 
 }

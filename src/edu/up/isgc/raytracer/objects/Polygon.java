@@ -24,29 +24,9 @@ public class Polygon extends Object3D {
 
     public List<Triangle> triangles;
 
-    public List<Triangle> getTriangles() {
-        return triangles;
-    }
-
     public Polygon(Vector3D position, Triangle[] triangles, Color color, Material material) {
         super(position, color, material);
         setTriangles(triangles);
-    }
-
-    public void setTriangles(Triangle[] triangles) {
-        Vector3D position = getPosition();
-        Set<Vector3D> uniqueVertices = new HashSet<Vector3D>();
-        for(Triangle triangle : triangles){
-            uniqueVertices.addAll(Arrays.asList(triangle.getVertices()));
-        }
-
-        for(Vector3D vertex : uniqueVertices){
-            vertex.setX(vertex.getX() + position.getX());
-            vertex.setY(vertex.getY() + position.getY());
-            vertex.setZ(vertex.getZ() + position.getZ());
-        }
-
-        this.triangles = Arrays.asList(triangles);
     }
 
     @Override
@@ -79,5 +59,25 @@ public class Polygon extends Object3D {
         }
 
         return new Intersection(position, distance, normal, this);
+    }
+
+    public List<Triangle> getTriangles() {
+        return triangles;
+    }
+
+    public void setTriangles(Triangle[] triangles) {
+        Vector3D position = getPosition();
+        Set<Vector3D> uniqueVertices = new HashSet<Vector3D>();
+        for(Triangle triangle : triangles){
+            uniqueVertices.addAll(Arrays.asList(triangle.getVertices()));
+        }
+
+        for(Vector3D vertex : uniqueVertices){
+            vertex.setX(vertex.getX() + position.getX());
+            vertex.setY(vertex.getY() + position.getY());
+            vertex.setZ(vertex.getZ() + position.getZ());
+        }
+
+        this.triangles = Arrays.asList(triangles);
     }
 }
