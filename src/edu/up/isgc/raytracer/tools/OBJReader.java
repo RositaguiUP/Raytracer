@@ -5,10 +5,9 @@
 package edu.up.isgc.raytracer.tools;
 
 import edu.up.isgc.raytracer.Vector3D;
-import edu.up.isgc.raytracer.materials.MaterialBP;
+import edu.up.isgc.raytracer.materials.Material;
 import edu.up.isgc.raytracer.objects.Polygon;
 import edu.up.isgc.raytracer.objects.Triangle;
-import javafx.scene.paint.Material;
 
 import java.awt.Color;
 import java.io.BufferedReader;
@@ -27,7 +26,7 @@ import java.util.logging.Logger;
  */
 public abstract class OBJReader {
 
-    public static Polygon GetPolygon(String path, Vector3D origin, Color color, MaterialBP material) {
+    public static Polygon GetPolygon(String path, Vector3D origin, Color color, Material material) {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(path));
 

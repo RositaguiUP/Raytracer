@@ -1,29 +1,19 @@
 package edu.up.isgc.raytracer.materials;
 
-public class MaterialBP {
-    private double ambient;
+public class Material {
     private double diffuse;
     private double specular;
     private double shininess;
     private double indexOfReflexion;
     private double indexOfRefraction;
 
-    public MaterialBP(double ambient, double diffuse, double specular, double shininess, double indexOfReflexion,
-                      double indexOfRefraction) {
-        setAmbient(ambient);
+    public Material(double diffuse, double specular, double shininess, double indexOfReflexion,
+                    double indexOfRefraction) {
         setDiffuse(diffuse);
         setSpecular(specular);
         setShininess(shininess);
         setIndexOfReflexion(indexOfReflexion);
         setIndexOfRefraction(indexOfRefraction);
-    }
-
-    public double getAmbient() {
-        return ambient;
-    }
-
-    public void setAmbient(double ambient) {
-        this.ambient = ambient;
     }
 
     public double getDiffuse() {

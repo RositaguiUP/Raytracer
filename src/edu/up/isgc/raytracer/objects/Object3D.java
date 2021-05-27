@@ -6,8 +6,7 @@ package edu.up.isgc.raytracer.objects;
 
 import edu.up.isgc.raytracer.IIntersectable;
 import edu.up.isgc.raytracer.Vector3D;
-import edu.up.isgc.raytracer.materials.MaterialBP;
-import javafx.scene.paint.Material;
+import edu.up.isgc.raytracer.materials.Material;
 
 import java.awt.*;
 
@@ -19,7 +18,7 @@ public abstract class Object3D implements IIntersectable {
 
     private Vector3D position;
     private Color color;
-    private MaterialBP material;
+    private Material material;
 
     public Vector3D getPosition() {
         return position;
@@ -37,11 +36,11 @@ public abstract class Object3D implements IIntersectable {
         this.color = color;
     }
 
-    public MaterialBP getMaterial() {
+    public Material getMaterial() {
         return material;
     }
 
-    public void setMaterial(MaterialBP material) {
+    public void setMaterial(Material material) {
         this.material = material;
     }
 
@@ -50,7 +49,7 @@ public abstract class Object3D implements IIntersectable {
         setColor(color);
     }
 
-    public Object3D(Vector3D position, Color color, MaterialBP material) {
+    public Object3D(Vector3D position, Color color, Material material) {
         setPosition(position);
         setColor(color);
         setMaterial(material);

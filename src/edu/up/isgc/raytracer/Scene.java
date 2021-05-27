@@ -19,10 +19,12 @@ public class Scene {
     private Camera camera;
     private ArrayList<Object3D> objects;
     private ArrayList<Light> lights;
+    private double ambientLight;
 
-    public Scene(){
+    public Scene(double ambientLight){
         setObjects(new ArrayList<Object3D>());
         setLights(new ArrayList<Light>());
+        setAmbientLight(ambientLight);
     }
 
     public Camera getCamera() {
@@ -56,4 +58,8 @@ public class Scene {
     public void addLight(Light light){
         getLights().add(light);
     }
+
+    public double getAmbientLight() { return ambientLight; }
+
+    public void setAmbientLight(double ambientLight) { this.ambientLight = ambientLight; }
 }

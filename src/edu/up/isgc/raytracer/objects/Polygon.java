@@ -7,9 +7,8 @@ package edu.up.isgc.raytracer.objects;
 import edu.up.isgc.raytracer.Intersection;
 import edu.up.isgc.raytracer.Ray;
 import edu.up.isgc.raytracer.Vector3D;
-import edu.up.isgc.raytracer.materials.MaterialBP;
+import edu.up.isgc.raytracer.materials.Material;
 import edu.up.isgc.raytracer.tools.Barycentric;
-import javafx.scene.paint.Material;
 
 import java.awt.*;
 import java.util.Arrays;
@@ -29,7 +28,7 @@ public class Polygon extends Object3D {
         return triangles;
     }
 
-    public Polygon(Vector3D position, Triangle[] triangles, Color color, MaterialBP material) {
+    public Polygon(Vector3D position, Triangle[] triangles, Color color, Material material) {
         super(position, color, material);
         setTriangles(triangles);
     }
