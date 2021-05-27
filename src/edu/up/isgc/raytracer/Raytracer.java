@@ -25,7 +25,7 @@ public class Raytracer {
     public static void main(String[] args) {
         System.out.println(new Date());
         Scene scene01 = new Scene(0.1f);
-        scene01.setCamera(new Camera(new Vector3D(0, 0, -10), 160, 160, 800,
+        scene01.setCamera(new Camera(new Vector3D(0, 0, -9), 160, 160, 800,
                 800, 0f, 50f));
         /*scene01.addLight(new DirectionalLight(Vector3D.ZERO(), new Vector3D(0.0, 0.0, 1.0), Color.WHITE, 0.8));
         scene01.addLight(new DirectionalLight(Vector3D.ZERO(), new Vector3D(0.0, -0.1, 0.1), Color.WHITE, 0.2));
@@ -43,9 +43,9 @@ public class Raytracer {
         scene01.addObject(OBJReader.GetPolygon("./objs/Cube.obj", new Vector3D(0f, -0.5f, 1f), Color.RED,
                 new MaterialBP(0.1f, 0.2f, 0.6f, 20f, 0f, 1.5f)));*/
 
-        scene01.addLight(new PointLight(new Vector3D(0f, 0.5f, -8.5f), Color.WHITE, 4f, 3));
+        scene01.addLight(new PointLight(new Vector3D(0f, 4f, 0.5f), Color.WHITE, 4f, 3));
         scene01.addObject(OBJReader.GetPolygon("./objs/Floor.obj", new Vector3D(0f, -2f, 0f), Color.WHITE,
-                new Material( true,1f, 1f, 20f, 0f, 0f, 0f)));
+                new Material( true,0.8f, 1f, 10f, 0f, 2f, 0f)));
         /*scene01.addObject(OBJReader.GetPolygon("./objs/SmallTeapot.obj", new Vector3D(-2f, -2f, 1f), Color.RED,
                 new Material(true,1f,1f, 20f,0f,0f)));
         scene01.addObject(OBJReader.GetPolygon("./objs/SmallTeapot.obj", new Vector3D(2f, -2f, 0f), Color.PINK,
@@ -54,10 +54,10 @@ public class Raytracer {
                 new Material(false, 1f,1f, 20f, 0.8f,0f)));
           scene01.addObject(OBJReader.GetPolygon("./objs/Cube.obj", new Vector3D(-2f, -1.5f, -1f), Color.WHITE,
                 new Material(1f,1f,20f,0f,1.8f)));*/
-        scene01.addObject(new Sphere(new Vector3D(0f, -0.5f, -6f), 0.5f, Color.WHITE,
-                new Material(true, 0.2f, 0.6f, 20f,0.9f, 0.1f,1.125f)));
-        /*scene01.addObject(OBJReader.GetPolygon("./objs/Cube.obj", new Vector3D(0f, -0.5f, 1f), Color.RED,
-                new Material(true, 0.2f, 0.6f, 20f, 0.9f, 0f, 1.5f)));*/
+        scene01.addObject(new Sphere(new Vector3D(0f, -0.5f, 3f), 0.5f, Color.WHITE,
+                new Material(true, 0.2f, 0.6f, 20f,0.2f, 0.8f,0f)));
+        scene01.addObject(OBJReader.GetPolygon("./objs/Cube.obj", new Vector3D(0f, -0.5f, 1f), Color.RED,
+                new Material(true, 0.2f, 0.6f, 20f, 0f, 0f, 1.5f)));
 
         BufferedImage image = raytrace(scene01);
         File outputImage = new File("image.png");
