@@ -44,17 +44,19 @@ public class Raytracer {
         scene01.addObject(OBJReader.GetPolygon("./objs/Cube.obj", new Vector3D(0f, -0.5f, 1f), Color.RED,
                 new MaterialBP(0.1f, 0.2f, 0.6f, 20f, 0f, 1.5f)));*/
 
-        scene01.addLight(new PointLight(new Vector3D(3, 2, 0), Color.WHITE, 2, 1));
+        scene01.addLight(new PointLight(new Vector3D(3f, 2f, 0f), Color.WHITE, 2f, 1));
         scene01.addObject(OBJReader.GetPolygon("./objs/Floor.obj", new Vector3D(0f, -2f, 0f), Color.WHITE,
-                new Material(1f, 1f, 20f, 0.8f, 0f)));
-        /*scene01.addObject(OBJReader.GetPolygon("./objs/SmallTeapot.obj", new Vector3D(-2f, -2f, 1f), Color.RED,
-                new Material(1f,1f, 20f,0f,0f)));
-        scene01.addObject(OBJReader.GetPolygon("./objs/SmallTeapot.obj", new Vector3D(2f, -2f, 0f), Color.WHITE,
-                new Material(1f,1f, 20f, 0.8f,0f)));
-        scene01.addObject(OBJReader.GetPolygon("./objs/Cube.obj", new Vector3D(-2f, -1.5f, -1f), Color.WHITE,
+                new Material( true,1f, 1f, 20f, 0.8f, 0f)));
+        scene01.addObject(OBJReader.GetPolygon("./objs/SmallTeapot.obj", new Vector3D(-2f, -2f, 1f), Color.RED,
+                new Material(true,1f,1f, 20f,0f,0f)));
+        scene01.addObject(OBJReader.GetPolygon("./objs/SmallTeapot.obj", new Vector3D(2f, -2f, 0f), Color.PINK,
+                new Material(false, 1f,1f, 20f, 0f,0f)));
+        /*scene01.addObject(OBJReader.GetPolygon("./objs/SmallTeapot.obj", new Vector3D(2f, -2f, 0f), Color.WHITE,
+                new Material(false, 1f,1f, 20f, 0.8f,0f)));
+          scene01.addObject(OBJReader.GetPolygon("./objs/Cube.obj", new Vector3D(-2f, -1.5f, -1f), Color.WHITE,
                 new Material(1f,1f,20f,0f,1.8f)));*/
-        scene01.addObject(new Sphere(new Vector3D(-0.5f, -0.8f, -1f), 0.5f, Color.WHITE,
-                new Material(1f, 1f, 20f,0f,1.8f)));
+        /*scene01.addObject(new Sphere(new Vector3D(-0.5f, -0.8f, -1f), 0.5f, Color.WHITE,
+                new Material(1f, 1f, 20f,0f,1.8f)));*/
 
         BufferedImage image = raytrace(scene01);
         File outputImage = new File("image.png");
