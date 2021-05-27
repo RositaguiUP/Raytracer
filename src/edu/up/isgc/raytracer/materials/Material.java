@@ -5,15 +5,17 @@ public class Material {
     private double diffuse;
     private double specular;
     private double shininess;
+    private double transparency;
     private double indexOfReflexion;
     private double indexOfRefraction;
 
-    public Material(boolean smooth, double diffuse, double specular, double shininess, double indexOfReflexion,
-                    double indexOfRefraction) {
+    public Material(boolean smooth, double diffuse, double specular, double shininess, double transparency,
+                    double indexOfReflexion, double indexOfRefraction) {
         setSmooth(smooth);
         setDiffuse(diffuse);
         setSpecular(specular);
         setShininess(shininess);
+        setTransparency(transparency);
         setIndexOfReflexion(indexOfReflexion);
         setIndexOfRefraction(indexOfRefraction);
     }
@@ -45,6 +47,10 @@ public class Material {
     public void setShininess(double shininess) {
         this.shininess = shininess;
     }
+
+    public double getTransparency() { return transparency; }
+
+    public void setTransparency(double transparency) { this.transparency = transparency; }
 
     public double getIndexOfReflexion() {
         return indexOfReflexion;

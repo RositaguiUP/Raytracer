@@ -43,9 +43,9 @@ public class Raytracer {
         scene01.addObject(OBJReader.GetPolygon("./objs/Cube.obj", new Vector3D(0f, -0.5f, 1f), Color.RED,
                 new MaterialBP(0.1f, 0.2f, 0.6f, 20f, 0f, 1.5f)));*/
 
-        scene01.addLight(new PointLight(new Vector3D(3f, 2f, 2f), Color.WHITE, 2f, 3));
+        scene01.addLight(new PointLight(new Vector3D(0f, 0.5f, -8.5f), Color.WHITE, 4f, 3));
         scene01.addObject(OBJReader.GetPolygon("./objs/Floor.obj", new Vector3D(0f, -2f, 0f), Color.WHITE,
-                new Material( true,1f, 1f, 20f, 0.8f, 0f)));
+                new Material( true,1f, 1f, 20f, 0f, 0f, 0f)));
         /*scene01.addObject(OBJReader.GetPolygon("./objs/SmallTeapot.obj", new Vector3D(-2f, -2f, 1f), Color.RED,
                 new Material(true,1f,1f, 20f,0f,0f)));
         scene01.addObject(OBJReader.GetPolygon("./objs/SmallTeapot.obj", new Vector3D(2f, -2f, 0f), Color.PINK,
@@ -54,8 +54,10 @@ public class Raytracer {
                 new Material(false, 1f,1f, 20f, 0.8f,0f)));
           scene01.addObject(OBJReader.GetPolygon("./objs/Cube.obj", new Vector3D(-2f, -1.5f, -1f), Color.WHITE,
                 new Material(1f,1f,20f,0f,1.8f)));*/
-        scene01.addObject(new Sphere(new Vector3D(-0.5f, -0.8f, -1f), 0.5f, Color.WHITE,
-                new Material(true, 1f, 1f, 20f,0f,1.8f)));
+        scene01.addObject(new Sphere(new Vector3D(0f, -0.5f, -6f), 0.5f, Color.WHITE,
+                new Material(true, 0.2f, 0.6f, 20f,0.9f, 0.1f,1.125f)));
+        /*scene01.addObject(OBJReader.GetPolygon("./objs/Cube.obj", new Vector3D(0f, -0.5f, 1f), Color.RED,
+                new Material(true, 0.2f, 0.6f, 20f, 0.9f, 0f, 1.5f)));*/
 
         BufferedImage image = raytrace(scene01);
         File outputImage = new File("image.png");
@@ -137,6 +139,19 @@ public class Raytracer {
                 pixelColor = shading(lightColor, objColor, pixelColor, specularIntensity, (float) objMaterial.getSpecular());
 
                 if (totalDepth < maxDepth) {
+                    // Transparency
+                    if (objMaterial.getTransparency() > 0 && reflectionDepth < maxDepth) {
+                        Ray intersectionTransmittanceRay = new Ray(closestIntersection.getPosition(), ray.getDirection());
+                        Intersection transmittanceIntersection = raycast(intersectionTransmittanceRay, objects, closestIntersection.getObject(),
+                                null);
+                        if (transmittanceIntersection != null) {
+                            totalDepth += 1;
+                            Color transmittanceIntersectionObjColor = getPixelColor(ray, lights, objects, transmittanceIntersection, Color.BLACK, ambientLight,
+                                    false, totalDepth, reflectionDepth, maxDepth);
+                            pixelColor = shading(pixelColor, transmittanceIntersectionObjColor, pixelColor, (float) objMaterial.getTransparency(), 1f);
+                        }
+                    }
+
                     // Reflection
                     if (objMaterial.getIndexOfReflexion() > 0 && reflectionDepth < maxDepth) {
                         Vector3D reflectionDirection = Vector3D.substract(ray.getDirection(), Vector3D.scalarMultiplication(
