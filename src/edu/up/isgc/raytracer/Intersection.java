@@ -9,6 +9,9 @@ import edu.up.isgc.raytracer.objects.Object3D;
 /**
  *
  * @author Jafet Rodríguez
+ * @author Rosita Aguirre
+ * This is a class for the intersections
+ *
  */
 public class Intersection {
 
@@ -24,6 +27,11 @@ public class Intersection {
         setObject(object);
     }
 
+    /**
+     *
+     * Getters and Setters
+     *
+     */
     public double getDistance() {
         return distance;
     }

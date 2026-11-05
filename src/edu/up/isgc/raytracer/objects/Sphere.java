@@ -7,30 +7,31 @@ package edu.up.isgc.raytracer.objects;
 import edu.up.isgc.raytracer.Intersection;
 import edu.up.isgc.raytracer.Ray;
 import edu.up.isgc.raytracer.Vector3D;
+import edu.up.isgc.raytracer.materials.Material;
 
 import java.awt.*;
 
 /**
  *
  * @author Jafet Rodríguez
+ * @author Rosita Aguirre
+ * This is class a to make the spheres
+ *
  */
 public class Sphere extends Object3D {
 
     private float radius;
 
-    public float getRadius() {
-        return radius;
-    }
-
-    public void setRadius(float radius) {
-        this.radius = radius;
-    }
-
-    public Sphere(Vector3D position, float radius, Color color) {
-        super(position, color);
+    public Sphere(Vector3D position, float radius, Color color, Material material) {
+        super(position, color, material);
         setRadius(radius);
     }
 
+    /**
+     * This method returns the casted ray intersection
+     *
+     * @param ray Ray to get the intersection
+     */
     @Override
     public Intersection getIntersection(Ray ray) {
         double distance = -1;
@@ -56,4 +57,18 @@ public class Sphere extends Object3D {
 
         return new Intersection(position, distance, normal, this);
     }
+
+    /**
+     *
+     * Getters and Setters
+     *
+     */
+    public float getRadius() {
+        return radius;
+    }
+
+    public void setRadius(float radius) {
+        this.radius = radius;
+    }
+
 }

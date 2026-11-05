@@ -6,18 +6,39 @@ package edu.up.isgc.raytracer.objects;
 
 import edu.up.isgc.raytracer.IIntersectable;
 import edu.up.isgc.raytracer.Vector3D;
+import edu.up.isgc.raytracer.materials.Material;
 
 import java.awt.*;
 
 /**
  *
  * @author Jafet Rodríguez
+ * @author Rosita Aguirre
+ * This is class the parect class for the objects 3D
+ *
  */
 public abstract class Object3D implements IIntersectable {
 
     private Vector3D position;
     private Color color;
+    private Material material;
 
+    public Object3D(Vector3D position, Color color) {
+        setPosition(position);
+        setColor(color);
+    }
+
+    public Object3D(Vector3D position, Color color, Material material) {
+        setPosition(position);
+        setColor(color);
+        setMaterial(material);
+    }
+
+    /**
+     *
+     * Getters and Setters
+     *
+     */
     public Vector3D getPosition() {
         return position;
     }
@@ -34,9 +55,12 @@ public abstract class Object3D implements IIntersectable {
         this.color = color;
     }
 
-    public Object3D(Vector3D position, Color color) {
-        setPosition(position);
-        setColor(color);
+    public Material getMaterial() {
+        return material;
+    }
+
+    public void setMaterial(Material material) {
+        this.material = material;
     }
 
 }

@@ -4,44 +4,65 @@
  */
 package edu.up.isgc.raytracer;
 
-import edu.up.isgc.raytracer.lights.DirectionalLight;
-import edu.up.isgc.raytracer.lights.Light;
-import edu.up.isgc.raytracer.lights.PointLight;
+import edu.up.isgc.raytracer.lights.*;
+import edu.up.isgc.raytracer.materials.*;
 import edu.up.isgc.raytracer.objects.*;
 import edu.up.isgc.raytracer.tools.OBJReader;
-import javafx.print.PageOrientation;
 
 import javax.imageio.ImageIO;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Date;
 
 /**
  * @author Jafet Rodríguez
+ * @author Rosita Aguirre Plascencia
+ * This is the main class to do the ray tracing
+ *
  */
 public class Raytracer {
-
+    /**
+     * This is the Main
+     *
+     * @param args
+     *
+     */
     public static void main(String[] args) {
         System.out.println(new Date());
-        Scene scene01 = new Scene();
-        scene01.setCamera(new Camera(new Vector3D(0, 0, -8), 160, 160, 800, 800, 8.2f, 50f));
-        /*scene01.addLight(new DirectionalLight(Vector3D.ZERO(), new Vector3D(0.0, 0.0, 1.0), Color.WHITE, 0.8));
-        scene01.addLight(new DirectionalLight(Vector3D.ZERO(), new Vector3D(0.0, -0.1, 0.1), Color.WHITE, 0.2));
-        scene01.addLight(new DirectionalLight(Vector3D.ZERO(), new Vector3D(-0.2, -0.1, 0.0), Color.WHITE, 0.2));*/
-        scene01.addLight(new PointLight(new Vector3D(0f, 1f, 0f), Color.WHITE, 0.8));
-        scene01.addObject(new Sphere(new Vector3D(0f, 1f, 5f), 0.5f, Color.RED));
-        scene01.addObject(new Sphere(new Vector3D(0.5f, 1f, 4.5f), 0.25f, new Color(200, 255, 0)));
-        scene01.addObject(new Sphere(new Vector3D(0.35f, 1f, 4.5f), 0.3f, Color.BLUE));
-        scene01.addObject(new Sphere(new Vector3D(4.85f, 1f, 4.5f), 0.3f, Color.PINK));
-        scene01.addObject(new Sphere(new Vector3D(2.85f, 1f, 304.5f), 0.5f, Color.BLUE));
-        scene01.addObject(OBJReader.GetPolygon("./objs/Cube.obj", new Vector3D(0f, -2.5f, 1f), Color.WHITE));
-        scene01.addObject(OBJReader.GetPolygon("./objs/CubeQuad.obj", new Vector3D(-3f, -2.5f, 3f), Color.GREEN));
-        scene01.addObject(OBJReader.GetPolygon("./objs/SmallTeapot.obj", new Vector3D(2f, -1.0f, 1.5f), Color.BLUE));
-        scene01.addObject(OBJReader.GetPolygon("./objs/Ring.obj", new Vector3D(2f, -1.0f, 1.5f), Color.BLUE));
+        Scene scene01 = new Scene(0.1f);
+        scene01.setCamera(new Camera(new Vector3D(0, 0, -9), 160, 160, 1200,
+                1200, 0f, 50f));
+
+        // Lights
+        scene01.addLight(new PointLight(new Vector3D(5f, 2f, 2f), Color.WHITE, 4f, 3));
+        /*scene01.addLight(new DirectionalLight(new Vector3D(0f, 8f, 0f), new Vector3D(0f, -8f, 0f), Color.WHITE, 2f));
+        scene01.addLight(new PointLight(new Vector3D(0f, 3f, -5f), Color.WHITE, 2f, 1));*/
+
+        // Objects
+        /*scene01.addObject(OBJReader.GetPolygon("./objs/Floor.obj", new Vector3D(0f, -3f, 0f), Color.WHITE,
+                new Material( true,0.8f, 0.3f, 10f, 0f, 2f, 0f)));
+        scene01.addObject(OBJReader.GetPolygon("./objs/PianoSpecial.obj", new Vector3D(0f, 0f, 5f), Color.WHITE,
+                new Material( true,0.3f, 0.2f, 10f, 0f, 0.3f, 0f)));
+        scene01.addObject(OBJReader.GetPolygon("./objs/SmallTeapot.obj", new Vector3D(0f, -1f, 3f), Color.RED,
+                new Material( true,0.3f, 0.8f, 50f, 0f, 0.5f, 0f)));
+        scene01.addObject(new Sphere(new Vector3D(0f, 0f, -5f), 1f, Color.WHITE,
+                new Material(true, 0.2f, 0.6f, 80f,0f, 0.2f,1.5f)));
+        scene01.addObject(OBJReader.GetPolygon("./objs/Floor.obj", new Vector3D(0f, -2f, 0f), Color.WHITE,
+                new Material( true,0.8f, 1f, 10f, 0f, 2f, 0f)));
+        scene01.addObject(new Sphere(new Vector3D(0f, -0.5f, 3f), 0.5f, Color.WHITE,
+                new Material(true, 0.2f, 0.6f, 20f,0.2f, 0.8f,0f)));
+        scene01.addObject(OBJReader.GetPolygon("./objs/Cube.obj", new Vector3D(0f, -0.5f, 1f), Color.RED,
+                new Material(true, 0.2f, 0.6f, 20f, 0f, 0f, 1.5f)));*/
+
+        scene01.addObject(OBJReader.GetPolygon("./objs/Floor.obj", new Vector3D(0f, -2f, 0f), Color.WHITE,
+                new Material( true,1f, 1f, 20f, 0f,0.8f, 0f)));
+        scene01.addObject(OBJReader.GetPolygon("./objs/SmallTeapot.obj", new Vector3D(0f, -2f, 2f), Color.RED,
+                new Material(true,1f,1f, 20f,0f,0f,0f)));
+        scene01.addObject(new Sphere(new Vector3D(0.5f, -0.8f, -3f), 0.5f, Color.WHITE,
+                new Material(true, 1f, 1f, 20f,0f, 0f,1.8f)));
 
         BufferedImage image = raytrace(scene01);
         File outputImage = new File("image.png");
@@ -53,6 +74,12 @@ public class Raytracer {
         System.out.println(new Date());
     }
 
+    /**
+     * This is an static method that creates the png
+     *
+     * @param scene Scene to ray trace
+     *
+     */
     public static BufferedImage raytrace(Scene scene) {
         Camera mainCamera = scene.getCamera();
         ArrayList<Light> lights = scene.getLights();
@@ -69,56 +96,36 @@ public class Raytracer {
 
                 Ray ray = new Ray(mainCamera.getPosition(), new Vector3D(x, y, z));
                 float cameraZ = (float) mainCamera.getPosition().getZ();
-                Intersection closestIntersection = raycast(ray, objects, null, new float[]{cameraZ + nearFarPlanes[0], cameraZ + nearFarPlanes[1]});
+                Intersection closestIntersection = raycast(ray, objects, null, new float[]{cameraZ + nearFarPlanes[0],
+                        cameraZ + nearFarPlanes[1]});
 
                 //Background color
                 Color pixelColor = Color.BLACK;
                 if (closestIntersection != null) {
-                    pixelColor = Color.BLACK;
-                    for (Light light : lights) {
-                        float nDotL = light.getNDotL(closestIntersection);
-                        float intensity = (float) light.getIntensity() * nDotL;
-                        Color lightColor = light.getColor();
-                        Color objColor = closestIntersection.getObject().getColor();
-                        float[] lightColors = new float[]{lightColor.getRed() / 255.0f, lightColor.getGreen() / 255.0f, lightColor.getBlue() / 255.0f};
-                        float[] objColors = new float[]{objColor.getRed() / 255.0f, objColor.getGreen() / 255.0f, objColor.getBlue() / 255.0f};
-                        for (int colorIndex = 0; colorIndex < objColors.length; colorIndex++) {
-                            objColors[colorIndex] *= intensity * lightColors[colorIndex];
-                        }
-                        Color diffuse = new Color(clamp(objColors[0], 0, 1),clamp(objColors[1], 0, 1),clamp(objColors[2], 0, 1));
-                        pixelColor = addColor(pixelColor, diffuse);
-                    }
+                    pixelColor = Shading.getPixelColor(ray, lights, objects, closestIntersection, pixelColor, (float) scene.getAmbientLight(),
+                             false, 0, 0,5);
                 }
                 image.setRGB(i, j, pixelColor.getRGB());
+
+                Loader(i, j, mainCamera.getResolutionWidth(), mainCamera.getResolutionHeight());
             }
         }
-
         return image;
     }
 
-    public static float clamp(float value, float min, float max) {
-        if (value < min) {
-            return min;
-        }
-        if (value > max) {
-            return max;
-        }
-        return value;
-    }
-
-    public static Color addColor(Color original, Color otherColor){
-        float red = clamp((original.getRed() / 255.0f) + (otherColor.getRed() / 255.0f), 0, 1);
-        float green = clamp((original.getGreen() / 255.0f) + (otherColor.getGreen() / 255.0f), 0, 1);
-        float blue = clamp((original.getBlue() / 255.0f) + (otherColor.getBlue() / 255.0f), 0, 1);
-        return new Color(red, green, blue);
-    }
-
+    /**
+     * This method returns an intersection with the ray casted
+     *
+     * @param ray Ray casted
+     * @param objects All the objectson the scene
+     * @param caster Current object for caster
+     * @param clippingPlanes Clipping planes
+     */
     public static Intersection raycast(Ray ray, ArrayList<Object3D> objects, Object3D caster, float[] clippingPlanes) {
         Intersection closestIntersection = null;
 
-        for (int k = 0; k < objects.size(); k++) {
-            Object3D currentObj = objects.get(k);
-            if (caster == null || !currentObj.equals(caster)) {
+        for (Object3D currentObj : objects) {
+            if (!currentObj.equals(caster)) {
                 Intersection intersection = currentObj.getIntersection(ray);
                 if (intersection != null) {
                     double distance = intersection.getDistance();
@@ -131,7 +138,25 @@ public class Raytracer {
                 }
             }
         }
-
         return closestIntersection;
     }
+
+    /**
+     * This method print the percentage advanced
+     *
+     * @param i Position on i
+     * @param j Position on j
+     * @param widthResolution Width resolution of the image
+     * @param heightResolution Height resolution of the image
+     */
+    public static void Loader(int i, int j, int widthResolution, int heightResolution){
+        int total = widthResolution*heightResolution;
+        int actualPixel = (i+1) * widthResolution + (j+1);
+
+        float percentage = (float) actualPixel*100/total;
+        if (percentage%10 == 0){
+            System.out.println("\tActual percentage: " + percentage + "% --- Pixel " + actualPixel + " of " + total + " --- " + new Date());
+        }
+    }
+
 }

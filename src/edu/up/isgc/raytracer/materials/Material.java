@@ -1,0 +1,81 @@
+package edu.up.isgc.raytracer.materials;
+
+/**
+ *
+ * @author Rosita Aguirre
+ * This is a class for the properties of the a material of an object
+ *
+ */
+public class Material {
+    private boolean smooth;
+    private double diffuse;
+    private double specular;
+    private double shininess;
+    private double transparency;
+    private double indexOfReflexion;
+    private double indexOfRefraction;
+
+    public Material(boolean smooth, double diffuse, double specular, double shininess, double transparency,
+                    double indexOfReflexion, double indexOfRefraction) {
+        setSmooth(smooth);
+        setDiffuse(diffuse);
+        setSpecular(specular);
+        setShininess(shininess);
+        setTransparency(transparency);
+        setIndexOfReflexion(indexOfReflexion);
+        setIndexOfRefraction(indexOfRefraction);
+    }
+
+    /**
+     *
+     * Getters and Setters
+     *
+     */
+    public boolean isSmooth() { return smooth; }
+
+    public void setSmooth(boolean smooth) { this.smooth = smooth; }
+
+    public double getDiffuse() {
+        return diffuse;
+    }
+
+    public void setDiffuse(double diffuse) {
+        this.diffuse = diffuse;
+    }
+
+    public double getSpecular() {
+        return specular;
+    }
+
+    public void setSpecular(double specular) {
+        this.specular = specular;
+    }
+
+    public double getShininess() {
+        return shininess;
+    }
+
+    public void setShininess(double shininess) {
+        this.shininess = shininess;
+    }
+
+    public double getTransparency() { return transparency; }
+
+    public void setTransparency(double transparency) { this.transparency = transparency; }
+
+    public double getIndexOfReflexion() {
+        return indexOfReflexion;
+    }
+
+    public void setIndexOfReflexion(double indexOfReflexion) {
+        this.indexOfReflexion = indexOfReflexion;
+    }
+
+    public double getIndexOfRefraction() {
+        return indexOfRefraction;
+    }
+
+    public void setIndexOfRefraction(double indexOfRefraction) {
+        this.indexOfRefraction = indexOfRefraction;
+    }
+}

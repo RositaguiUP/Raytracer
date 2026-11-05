@@ -7,6 +7,9 @@ package edu.up.isgc.raytracer;
 /**
  *
  * @author Jafet Rodríguez
+ * @author Rosita Aguirre
+ * This is a class for the rays
+ *
  */
 public class Ray {
 
@@ -18,6 +21,11 @@ public class Ray {
         setDirection(direction);
     }
 
+    /**
+     *
+     * Getters and Setters
+     *
+     */
     public Vector3D getOrigin() {
         return origin;
     }

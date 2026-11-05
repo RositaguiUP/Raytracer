@@ -13,18 +13,28 @@ import java.util.ArrayList;
 /**
  *
  * @author Jafet Rodríguez
+ * @author Rosita Aguirre
+ * This is a class for the scenes
+ *
  */
 public class Scene {
 
     private Camera camera;
     private ArrayList<Object3D> objects;
     private ArrayList<Light> lights;
+    private double ambientLight;
 
-    public Scene(){
+    public Scene(double ambientLight){
         setObjects(new ArrayList<Object3D>());
         setLights(new ArrayList<Light>());
+        setAmbientLight(ambientLight);
     }
 
+    /**
+     *
+     * Getters and Setters
+     *
+     */
     public Camera getCamera() {
         return camera;
     }
@@ -56,4 +66,8 @@ public class Scene {
     public void addLight(Light light){
         getLights().add(light);
     }
+
+    public double getAmbientLight() { return ambientLight; }
+
+    public void setAmbientLight(double ambientLight) { this.ambientLight = ambientLight; }
 }

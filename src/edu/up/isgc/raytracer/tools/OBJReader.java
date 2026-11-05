@@ -5,6 +5,7 @@
 package edu.up.isgc.raytracer.tools;
 
 import edu.up.isgc.raytracer.Vector3D;
+import edu.up.isgc.raytracer.materials.Material;
 import edu.up.isgc.raytracer.objects.Polygon;
 import edu.up.isgc.raytracer.objects.Triangle;
 
@@ -21,11 +22,24 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ *
  * @author Jafet Rodríguez
+ * @author Rosita Aguirre
+ * This is a class for read the obj files
+ *
  */
 public abstract class OBJReader {
 
-    public static Polygon GetPolygon(String path, Vector3D origin, Color color) {
+    /**
+     * This method returns the polygon of the obj
+     *
+     * @param path Path of the file
+     * @param origin Origin vector to assign to the objec
+     * @param color Color to assign to the objec
+     * @param material Material to assign to the object
+     *
+     */
+    public static Polygon GetPolygon(String path, Vector3D origin, Color color, Material material) {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(path));
 
@@ -164,7 +178,7 @@ public abstract class OBJReader {
                 }
             }
 
-            return new Polygon(origin, triangles.toArray(new Triangle[triangles.size()]), color);
+            return new Polygon(origin, triangles.toArray(new Triangle[triangles.size()]), color, material);
         } catch (FileNotFoundException ex) {
             Logger.getLogger(OBJReader.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {

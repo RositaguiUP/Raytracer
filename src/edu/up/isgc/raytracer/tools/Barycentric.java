@@ -9,6 +9,8 @@ import edu.up.isgc.raytracer.objects.Triangle;
 
 /**
  * @author Jafet Rodríguez
+ * @author Rosita Aguirre
+ * This is class for the barycentric coordinates
  * @see <a href="https://www.amazon.com/Real-Time-Collision-Detection-Interactive-Technology/dp/1558607323">Christer Ericson's Real-Time Collision Detection</a>
  */
 public class Barycentric {
@@ -16,6 +18,12 @@ public class Barycentric {
     private Barycentric() {
     }
 
+    /**
+     * This method returns the barycentric coordinates
+     *
+     * @param point Point that determinate the coordinates
+     * @param triangle Triangle to check the point
+     */
     // Based on Christer Ericson's Real-Time Collision Detection
     public static double[] CalculateBarycentricCoordinates(Vector3D point, Triangle triangle) {
         double u, v, w;
