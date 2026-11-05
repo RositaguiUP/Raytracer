@@ -11,11 +11,33 @@ import edu.up.isgc.raytracer.objects.Object3D;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ *
+ * @author Jafet Rodríguez
+ * @author Rosita Aguirre
+ * This is a class that helps to determinate the color of the pixels depending on its material
+ *
+ */
 public class Shading {
 
     private Shading() {
     }
 
+    /**
+     * This is an static method that the Color for a pixel
+     *
+     * @param ray Ray casted
+     * @param lights All the lighs on the scene
+     * @param objects All the objectson the scene
+     * @param closestIntersection The closesIntersection to check
+     * @param pixelColor Current color of the pixel
+     * @param ambientLight Constant for ambient light
+     * @param addedAmbient To just add once
+     * @param totalDepth Current depth of all the variables
+     * @param reflectionDepth Current depth for the reflection
+     * @param maxDepth Limit for the depth
+     *
+     */
     public static Color getPixelColor(Ray ray, ArrayList<Light> lights, ArrayList<Object3D> objects, Intersection closestIntersection,
                                       Color pixelColor, float ambientLight, boolean addedAmbient, int totalDepth, int reflectionDepth, int maxDepth){
         for (Light light : lights) {
@@ -103,6 +125,14 @@ public class Shading {
         return pixelColor;
     }
 
+    /**
+     * This is an static method that returns a the value that is posible in the range
+     *
+     * @param value Value to check
+     * @param min Min of the range
+     * @param max Max of the range
+     *
+     */
     public static float clamp(float value, float min, float max) {
         if (value < min) {
             return min;
@@ -110,6 +140,13 @@ public class Shading {
         return Math.min(value, max);
     }
 
+    /**
+     * This is an static method that add colors
+     *
+     * @param original Original color
+     * @param otherColor Color to add
+     *
+     */
     public static Color addColor(Color original, Color otherColor){
         float red = clamp((original.getRed() / 255.0f) + (otherColor.getRed() / 255.0f), 0, 1);
         float green = clamp((original.getGreen() / 255.0f) + (otherColor.getGreen() / 255.0f), 0, 1);
@@ -117,6 +154,16 @@ public class Shading {
         return new Color(red, green, blue);
     }
 
+    /**
+     * This is an static method that returns a color obtained by mixed RBS and their constants
+     *
+     * @param lightColor Color of the light
+     * @param objColor Color of the object
+     * @param pixelColor Current color
+     * @param lightIntensity Intensity of the light
+     * @param multiplier Constant
+     *
+     */
     public static Color shading(Color lightColor, Color objColor, Color pixelColor, float lightIntensity, float multiplier){
         float[] lightRGB = new float[]{lightColor.getRed() / 255.0f, lightColor.getGreen() / 255.0f, lightColor.getBlue() / 255.0f};
         float[] objRGB = new float[]{objColor.getRed() / 255.0f, objColor.getGreen() / 255.0f, objColor.getBlue() / 255.0f};
@@ -127,6 +174,14 @@ public class Shading {
         return addColor(pixelColor, colorToAdd);
     }
 
+    /**
+     * This is an static method that returns a vector for the refraction direction
+     *
+     * @param i Ray of the camera
+     * @param n normal of the object
+     * @param ior Constant for refraction
+     *
+     */
     public static Vector3D transmitionRay(Vector3D i, Vector3D n,float ior)
     {
         float nDotL = (float) Vector3D.dotProduct(i, n);

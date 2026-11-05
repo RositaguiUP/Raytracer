@@ -7,6 +7,9 @@ package edu.up.isgc.raytracer;
 /**
  *
  * @author Jafet Rodríguez
+ * @author Rosita Aguirre
+ * This is a class for math methods of Vectors
+ *
  */
 public class Vector3D {
 
@@ -19,6 +22,11 @@ public class Vector3D {
         setZ(z);
     }
 
+    /**
+     *
+     * Math operations
+     *
+     */
     public static double dotProduct(Vector3D vectorA, Vector3D vectorB){
         return (vectorA.getX() * vectorB.getX()) + (vectorA.getY() * vectorB.getY()) + (vectorA.getZ() * vectorB.getZ());
     }
@@ -49,6 +57,12 @@ public class Vector3D {
     public static Vector3D scalarMultiplication(Vector3D vectorA, double scalar){
         return new Vector3D(vectorA.getX() * scalar, vectorA.getY() * scalar, vectorA.getZ() * scalar);
     }
+
+    /**
+     *
+     * Getters and Setters
+     *
+     */
 
     public Vector3D clone(){
         return new Vector3D(getX(), getY(), getZ());

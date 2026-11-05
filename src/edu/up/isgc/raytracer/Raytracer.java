@@ -19,9 +19,17 @@ import java.util.Date;
 
 /**
  * @author Jafet Rodríguez
+ * @author Rosita Aguirre Plascencia
+ * This is the main class to do the ray tracing
+ *
  */
 public class Raytracer {
-
+    /**
+     * This is the Main
+     *
+     * @param args
+     *
+     */
     public static void main(String[] args) {
         System.out.println(new Date());
         Scene scene01 = new Scene(0.1f);
@@ -29,53 +37,32 @@ public class Raytracer {
                 1200, 0f, 50f));
 
         // Lights
-        scene01.addLight(new PointLight(new Vector3D(0f, 3f, -5f), Color.WHITE, 2f, 1));
-        scene01.addLight(new PointLight(new Vector3D(0f, 3f, 5f), Color.WHITE, 2f, 1));
+        scene01.addLight(new PointLight(new Vector3D(5f, 2f, 2f), Color.WHITE, 4f, 3));
+        /*scene01.addLight(new DirectionalLight(new Vector3D(0f, 8f, 0f), new Vector3D(0f, -8f, 0f), Color.WHITE, 2f));
+        scene01.addLight(new PointLight(new Vector3D(0f, 3f, -5f), Color.WHITE, 2f, 1));*/
 
         // Objects
-        scene01.addObject(OBJReader.GetPolygon("./objs/Floor.obj", new Vector3D(0f, -3f, 0f), Color.WHITE,
+        /*scene01.addObject(OBJReader.GetPolygon("./objs/Floor.obj", new Vector3D(0f, -3f, 0f), Color.WHITE,
                 new Material( true,0.8f, 0.3f, 10f, 0f, 2f, 0f)));
-        scene01.addObject(OBJReader.GetPolygon("./objs/SmallTeapotSpecial.obj", new Vector3D(-1.5f, 1.2f, -1f), Color.WHITE,
-                new Material( true,0.8f, 1f, 10f, 0f, 0.5f, 0f)));
-        scene01.addObject(OBJReader.GetPolygon("./objs/PlateSpecial2.obj", new Vector3D(1.5f, -1.2f, -1f), Color.WHITE,
-                new Material( true,0.8f, 0.1f, 10f, 0.6f, 0.5f, 0f)));
-
-        scene01.addObject(new Sphere(new Vector3D(0.47f, 1.085f, -1f), 0.1f, Color.RED,
-                new Material(true, 0.2f, 0.6f, 80f,0f, 0.8f,1.5f)));
-        scene01.addObject(new Sphere(new Vector3D(0.8f, 0.75f, -1f), 0.1f, Color.ORANGE,
-                new Material(true, 0.2f, 0.6f, 80f,0f, 0.8f,1.5f)));
-        scene01.addObject(new Sphere(new Vector3D(1.2f, 0.2f, -1f), 0.1f, Color.BLUE,
-                new Material(true, 0.2f, 0.6f, 80f,0f, 0.8f,1.5f)));
-        scene01.addObject(new Sphere(new Vector3D(1.6f, -0.5f, -1f), 0.1f, Color.GREEN,
-                new Material(true, 0.2f, 0.6f, 80f,0f, 0.8f,1.5f)));
-        scene01.addObject(new Sphere(new Vector3D(1.25f, -1.05f, -1f), 0.1f, Color.CYAN,
-                new Material(true, 0.2f, 0.6f, 80f,0f, 0.8f,1.5f)));
-        scene01.addObject(new Sphere(new Vector3D(0.6f, -1.5f, -1f), 0.1f, Color.PINK,
-                new Material(true, 0.2f, 0.6f, 80f,0f, 0.8f,1.5f)));
-        scene01.addObject(new Sphere(new Vector3D(0f, -1.8, -1f), 0.1f, Color.YELLOW,
-                new Material(true, 0.2f, 0.6f, 80f,0f, 0.8f,1.5f)));
-        scene01.addObject(new Sphere(new Vector3D(-0.5f, -2.4, -1f), 0.1f, Color.MAGENTA,
-                new Material(true, 0.2f, 0.6f, 80f,0f, 0.8f,1.5f)));
-        scene01.addObject(new Sphere(new Vector3D(2.4f, -2.8, -1.5f), 0.1f, Color.RED,
-                new Material(true, 0.2f, 0.6f, 80f,0f, 0.8f,1.5f)));
-        scene01.addObject(new Sphere(new Vector3D(-2.7f, -2.8, 4.2f), 0.1f, Color.PINK,
-                new Material(true, 0.2f, 0.6f, 80f,0f, 0.8f,1.5f)));
-        scene01.addObject(new Sphere(new Vector3D(1.6f, -2.8, -0.1f), 0.1f, Color.BLUE,
-                new Material(true, 0.2f, 0.6f, 80f,0f, 0.8f,1.5f)));
-        scene01.addObject(new Sphere(new Vector3D(-1.7f, -2.8, -0.6f), 0.1f, Color.ORANGE,
-                new Material(true, 0.2f, 0.6f, 80f,0f, 0.8f,1.5f)));
-        scene01.addObject(new Sphere(new Vector3D(3.1f, -2.8, 1.7f), 0.1f, Color.YELLOW,
-                new Material(true, 0.2f, 0.6f, 80f,0f, 0.8f,1.5f)));
-        scene01.addObject(new Sphere(new Vector3D(-3.3f, -2.8, 0.5f), 0.1f, Color.GREEN,
-                new Material(true, 0.2f, 0.6f, 80f,0f, 0.8f,1.5f)));
-        scene01.addObject(new Sphere(new Vector3D(1.9f, -2.8, 3.6f), 0.1f, Color.MAGENTA,
-                new Material(true, 0.2f, 0.6f, 80f,0f, 0.8f,1.5f)));
-        scene01.addObject(new Sphere(new Vector3D(-2.9f, -2.8, 2.2f), 0.1f, Color.CYAN,
-                new Material(true, 0.2f, 0.6f, 80f,0f, 0.8f,1.5f)));
-        /*scene01.addObject(OBJReader.GetPolygon("./objs/Floor.obj", new Vector3D(0f, -2f, 0f), Color.WHITE,
-                new Material( true,0.8f, 1f, 10f, 0f, 2f, 0f)));*/
-        /*scene01.addObject(OBJReader.GetPolygon("./objs/Cube.obj", new Vector3D(0f, -0.5f, 1f), Color.RED,
+        scene01.addObject(OBJReader.GetPolygon("./objs/PianoSpecial.obj", new Vector3D(0f, 0f, 5f), Color.WHITE,
+                new Material( true,0.3f, 0.2f, 10f, 0f, 0.3f, 0f)));
+        scene01.addObject(OBJReader.GetPolygon("./objs/SmallTeapot.obj", new Vector3D(0f, -1f, 3f), Color.RED,
+                new Material( true,0.3f, 0.8f, 50f, 0f, 0.5f, 0f)));
+        scene01.addObject(new Sphere(new Vector3D(0f, 0f, -5f), 1f, Color.WHITE,
+                new Material(true, 0.2f, 0.6f, 80f,0f, 0.2f,1.5f)));
+        scene01.addObject(OBJReader.GetPolygon("./objs/Floor.obj", new Vector3D(0f, -2f, 0f), Color.WHITE,
+                new Material( true,0.8f, 1f, 10f, 0f, 2f, 0f)));
+        scene01.addObject(new Sphere(new Vector3D(0f, -0.5f, 3f), 0.5f, Color.WHITE,
+                new Material(true, 0.2f, 0.6f, 20f,0.2f, 0.8f,0f)));
+        scene01.addObject(OBJReader.GetPolygon("./objs/Cube.obj", new Vector3D(0f, -0.5f, 1f), Color.RED,
                 new Material(true, 0.2f, 0.6f, 20f, 0f, 0f, 1.5f)));*/
+
+        scene01.addObject(OBJReader.GetPolygon("./objs/Floor.obj", new Vector3D(0f, -2f, 0f), Color.WHITE,
+                new Material( true,1f, 1f, 20f, 0f,0.8f, 0f)));
+        scene01.addObject(OBJReader.GetPolygon("./objs/SmallTeapot.obj", new Vector3D(0f, -2f, 2f), Color.RED,
+                new Material(true,1f,1f, 20f,0f,0f,0f)));
+        scene01.addObject(new Sphere(new Vector3D(0.5f, -0.8f, -3f), 0.5f, Color.WHITE,
+                new Material(true, 1f, 1f, 20f,0f, 0f,1.8f)));
 
         BufferedImage image = raytrace(scene01);
         File outputImage = new File("image.png");
@@ -87,6 +74,12 @@ public class Raytracer {
         System.out.println(new Date());
     }
 
+    /**
+     * This is an static method that creates the png
+     *
+     * @param scene Scene to ray trace
+     *
+     */
     public static BufferedImage raytrace(Scene scene) {
         Camera mainCamera = scene.getCamera();
         ArrayList<Light> lights = scene.getLights();
@@ -120,6 +113,14 @@ public class Raytracer {
         return image;
     }
 
+    /**
+     * This method returns an intersection with the ray casted
+     *
+     * @param ray Ray casted
+     * @param objects All the objectson the scene
+     * @param caster Current object for caster
+     * @param clippingPlanes Clipping planes
+     */
     public static Intersection raycast(Ray ray, ArrayList<Object3D> objects, Object3D caster, float[] clippingPlanes) {
         Intersection closestIntersection = null;
 
@@ -140,6 +141,14 @@ public class Raytracer {
         return closestIntersection;
     }
 
+    /**
+     * This method print the percentage advanced
+     *
+     * @param i Position on i
+     * @param j Position on j
+     * @param widthResolution Width resolution of the image
+     * @param heightResolution Height resolution of the image
+     */
     public static void Loader(int i, int j, int widthResolution, int heightResolution){
         int total = widthResolution*heightResolution;
         int actualPixel = (i+1) * widthResolution + (j+1);

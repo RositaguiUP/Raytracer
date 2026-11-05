@@ -10,7 +10,11 @@ import edu.up.isgc.raytracer.Ray;
 import edu.up.isgc.raytracer.Vector3D;
 
 /**
+ *
  * @author Jafet Rodríguez
+ * @author Rosita Aguirre
+ * This is class  a to make the triangles
+ *
  */
 public class Triangle implements IIntersectable {
 
@@ -39,7 +43,9 @@ public class Triangle implements IIntersectable {
     }
 
     /**
+     * This method returns the casted ray intersection
      *
+     * @param ray Ray to get the intersection
      * @see <a href="https://cadxfem.org/inf/Fast%20MinimumStorage%20RayTriangle%20Intersection.pdf">Moller-Trumbore intersection algorithm</a>
      */
     @Override
@@ -70,6 +76,11 @@ public class Triangle implements IIntersectable {
         return intersection;
     }
 
+    /**
+     *
+     * Getters and Setters
+     *
+     */
     public Vector3D[] getVertices() {
         return vertices;
     }

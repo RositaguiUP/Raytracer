@@ -1,5 +1,11 @@
 package edu.up.isgc.raytracer.materials;
 
+/**
+ *
+ * @author Rosita Aguirre
+ * This is a class for the properties of the a material of an object
+ *
+ */
 public class Material {
     private boolean smooth;
     private double diffuse;
@@ -20,6 +26,11 @@ public class Material {
         setIndexOfRefraction(indexOfRefraction);
     }
 
+    /**
+     *
+     * Getters and Setters
+     *
+     */
     public boolean isSmooth() { return smooth; }
 
     public void setSmooth(boolean smooth) { this.smooth = smooth; }

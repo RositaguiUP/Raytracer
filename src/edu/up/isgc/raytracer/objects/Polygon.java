@@ -19,6 +19,9 @@ import java.util.Set;
 /**
  *
  * @author Jafet Rodríguez
+ * @author Rosita Aguirre
+ * This is class a to make the polygons
+ *
  */
 public class Polygon extends Object3D {
 
@@ -29,6 +32,12 @@ public class Polygon extends Object3D {
         setTriangles(triangles);
     }
 
+
+    /**
+     * This method returns the casted ray intersection
+     *
+     * @param ray Ray to get the intersection
+     */
     @Override
     public Intersection getIntersection(Ray ray) {
         double distance = -1;
@@ -61,6 +70,11 @@ public class Polygon extends Object3D {
         return new Intersection(position, distance, normal, this);
     }
 
+    /**
+     *
+     * Getters and Setters
+     *
+     */
     public List<Triangle> getTriangles() {
         return triangles;
     }

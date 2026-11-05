@@ -14,6 +14,9 @@ import java.awt.*;
 /**
  *
  * @author Jafet Rodríguez
+ * @author Rosita Aguirre
+ * This is a parent class for lights
+ *
  */
 public abstract class Light extends Object3D {
     private double intensity;
@@ -23,12 +26,27 @@ public abstract class Light extends Object3D {
         setIntensity(intensity);
     }
 
+    /**
+     * This is an abstract that returns the dot product (float)
+     *
+     * @param intersection Object intersections
+     */
     public abstract float getNDotL(Intersection intersection);
 
+    /**
+     * This method returns a new intersection
+     *
+     * @param ray
+     */
     public Intersection getIntersection(Ray ray){
         return new Intersection(Vector3D.ZERO(), -1, Vector3D.ZERO(), null);
     }
 
+    /**
+     *
+     * Getters and Setters
+     *
+     */
     public double getIntensity() {
         return intensity;
     }

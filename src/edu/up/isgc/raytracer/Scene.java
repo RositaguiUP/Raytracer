@@ -13,6 +13,9 @@ import java.util.ArrayList;
 /**
  *
  * @author Jafet Rodríguez
+ * @author Rosita Aguirre
+ * This is a class for the scenes
+ *
  */
 public class Scene {
 
@@ -27,6 +30,11 @@ public class Scene {
         setAmbientLight(ambientLight);
     }
 
+    /**
+     *
+     * Getters and Setters
+     *
+     */
     public Camera getCamera() {
         return camera;
     }

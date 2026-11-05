@@ -14,6 +14,9 @@ import java.awt.*;
 /**
  *
  * @author Jafet Rodríguez
+ * @author Rosita Aguirre
+ * This is class a to make the spheres
+ *
  */
 public class Sphere extends Object3D {
 
@@ -24,6 +27,11 @@ public class Sphere extends Object3D {
         setRadius(radius);
     }
 
+    /**
+     * This method returns the casted ray intersection
+     *
+     * @param ray Ray to get the intersection
+     */
     @Override
     public Intersection getIntersection(Ray ray) {
         double distance = -1;
@@ -50,6 +58,11 @@ public class Sphere extends Object3D {
         return new Intersection(position, distance, normal, this);
     }
 
+    /**
+     *
+     * Getters and Setters
+     *
+     */
     public float getRadius() {
         return radius;
     }

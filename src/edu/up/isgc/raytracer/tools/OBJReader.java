@@ -22,10 +22,23 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ *
  * @author Jafet Rodríguez
+ * @author Rosita Aguirre
+ * This is a class for read the obj files
+ *
  */
 public abstract class OBJReader {
 
+    /**
+     * This method returns the polygon of the obj
+     *
+     * @param path Path of the file
+     * @param origin Origin vector to assign to the objec
+     * @param color Color to assign to the objec
+     * @param material Material to assign to the object
+     *
+     */
     public static Polygon GetPolygon(String path, Vector3D origin, Color color, Material material) {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(path));

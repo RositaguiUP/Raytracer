@@ -12,7 +12,11 @@ import edu.up.isgc.raytracer.objects.Object3D;
 import java.awt.*;
 
 /**
+ *
  * @author Jafet Rodríguez
+ * @author Rosita Aguirre
+ * This is a class for the camera to do the raytracer
+ *
  */
 public class Camera extends Object3D {
     // 0 is fovh
@@ -32,6 +36,9 @@ public class Camera extends Object3D {
         setNearFarPlanes(new float[]{nearPlane, farPlane});
     }
 
+    /**
+     * This method returns a matrix of vectors of the pixels where the camera is going to cast rays
+     */
     public Vector3D[][] calculatePositionsToRay() {
         float angleMaxX = 90 - (getFieldOfViewHorizontal() / 2f);
         float radiusMaxX = getDefaultZ() / (float) Math.cos(Math.toRadians(angleMaxX));
@@ -59,10 +66,21 @@ public class Camera extends Object3D {
         return positions;
     }
 
+    /**
+     * This method returns a new intersection
+     *
+     * @param ray
+     */
     @Override
     public Intersection getIntersection(Ray ray) {
         return new Intersection(Vector3D.ZERO(), -1, Vector3D.ZERO(), null);
     }
+
+    /**
+     *
+     * Getters and Setters
+     *
+     */
 
     public float[] getFieldOfView() {
         return fieldOfView;

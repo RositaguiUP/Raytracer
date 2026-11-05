@@ -12,6 +12,9 @@ import java.awt.*;
 /**
  *
  * @author Jafet Rodríguez
+ * @author Rosita Aguirre
+ * This is a class for lights that just have one direction
+ *
  */
 public class DirectionalLight extends Light {
     private Vector3D direction;
@@ -21,11 +24,21 @@ public class DirectionalLight extends Light {
         setDirection(Vector3D.normalize(direction));
     }
 
+    /**
+     * This method returns the dot product (float) between the light and the intersection
+     *
+     * @param intersection Object intersection to get its normal
+     */
     @Override
     public float getNDotL(Intersection intersection) {
         return (float)Math.max(Vector3D.dotProduct(intersection.getNormal(), Vector3D.scalarMultiplication(getDirection(), -1.0)), 0.0);
     }
 
+    /**
+     *
+     * Getters and Setters
+     *
+     */
     public Vector3D getDirection() {
         return direction;
     }

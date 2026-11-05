@@ -13,6 +13,9 @@ import java.awt.*;
 /**
  *
  * @author Jafet Rodríguez
+ * @author Rosita Aguirre
+ * This is class the parect class for the objects 3D
+ *
  */
 public abstract class Object3D implements IIntersectable {
 
@@ -31,6 +34,11 @@ public abstract class Object3D implements IIntersectable {
         setMaterial(material);
     }
 
+    /**
+     *
+     * Getters and Setters
+     *
+     */
     public Vector3D getPosition() {
         return position;
     }
